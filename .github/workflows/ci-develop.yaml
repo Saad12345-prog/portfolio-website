@@ -1,4 +1,4 @@
-name: Lint HTML & CSS
+name: CI Develop Lint
 
 on:
   pull_request:
@@ -8,14 +8,10 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
       - name: Install linters
         run: |
@@ -25,5 +21,4 @@ jobs:
         run: htmlhint "**/*.html" --config .htmlhintrc.json
 
       - name: Run Stylelint
-        run: stylelint "**/*.css" --config .stylelintrc.json
-      
+        run: stylelint "**/*.css" --config .stylelintrc.json --allow-empty-input
